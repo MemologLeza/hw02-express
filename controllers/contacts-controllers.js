@@ -1,13 +1,12 @@
-import contactService from "../models/index.js";
-
+import Contact from "../models/Contact.js";
  import { HttpError } from "../helpers/index.js";
 
 import { ctrlWrapper } from "../decorators/index.js";
 
-import { contactAddSchema, contactUpdateSchema } from "../schemas/validationSchema.js";
+import { contactAddSchema, contactUpdateSchema } from "../models/Contact.js";
 
 const getAll = async (req, res, next) => {
-        const result = await contactService.listContacts();
+        const result = await Contact.find();
         res.json(result);
   
 }
@@ -15,7 +14,7 @@ const getAll = async (req, res, next) => {
 const getById = async (req, res, next) => {
     
         const { contactId } = req.params;
-        const result = await contactService.getContactById(contactId);
+        const result = await Contact.findById(contactId);
         if (!result) {
              throw HttpError(404, `Contact with id=${contactId} not found`);
         }
@@ -23,7 +22,7 @@ const getById = async (req, res, next) => {
 }
 
 const add = async(req, res, next)=> {
-        const result = await contactService.addContact(req.body);
+        const result = await Contact.create(req.body);
         res.status(201).json(result);
     }
     
@@ -31,7 +30,7 @@ const add = async(req, res, next)=> {
 
 const updateById = async(req, res, next)=> {
         const {contactId} = req.params;
-        const result = await contactService.updateContact(contactId, req.body);
+        const result = await Contact.findByIdAndUpdate(contactId, req.body);
         if (!result) {
             throw HttpError(404, `Contact with id=${contactId} not found`);
         }
@@ -42,7 +41,7 @@ const updateById = async(req, res, next)=> {
 
 const deleteById = async(req, res, next)=> {
         const {contactId} = req.params;
-        const result = await contactService.removeContact(contactId);
+        const result = await Contact.findByIdAndDelete(contactId);
         if (!result) {
             throw HttpError(404, `Contact with id=${contactId} not found`);
         }
