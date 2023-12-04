@@ -16,6 +16,10 @@ const contactSchema = new Schema({
         type: Boolean,
         default: false,
     },
+      owner: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    },
 }, { versionKey: false });
 contactSchema.pre("findOneAndUpdate", preUpdate)
 contactSchema.post("save", handleSaveError)
@@ -34,7 +38,7 @@ export const contactUpdateSchema = Joi.object({
   phone: Joi.string(),
   favorite: Joi.boolean(),
 });
-export const contactFavorireSchema = Joi.object({
+export const contactFavoriteSchema = Joi.object({
     favorite: Joi.boolean().required(),
 })
 
