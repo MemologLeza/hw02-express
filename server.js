@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import app from "./app.js";
 
-// liza-bakai : yd9frZq29IqWkhVG
+
 const { DB_HOST } = process.env;
 
 mongoose.connect(DB_HOST)
