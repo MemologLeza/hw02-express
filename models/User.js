@@ -21,7 +21,10 @@ const userSchema = new Schema({
         enum: subscriptionType,
         default: "starter"
     },
-    token: String
+    avatarURL: {
+        type: String
+    },
+    token: String,
 }, { versionKey: false });
 
 userSchema.pre("findOneAndUpdate", preUpdate)
@@ -37,5 +40,6 @@ export const singinSchema = Joi.object({
     email: Joi.string().pattern(emailRegexp).required(),
     password: Joi.string().min(6).required(),
 });
+
 const User = model("user", userSchema);
 export default User;
