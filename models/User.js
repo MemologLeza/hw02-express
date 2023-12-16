@@ -24,6 +24,13 @@ const userSchema = new Schema({
     avatarURL: {
         type: String
     },
+    verify: {
+        type: Boolean,
+        default: false
+    },
+    verificationToken: {
+        type: String
+    },
     token: String,
 }, { versionKey: false });
 
@@ -40,6 +47,9 @@ export const singinSchema = Joi.object({
     email: Joi.string().pattern(emailRegexp).required(),
     password: Joi.string().min(6).required(),
 });
+export const emailSchema = Joi.object({
+    email:Joi.string().pattern(emailRegexp).required(),
+})
 
 const User = model("user", userSchema);
 export default User;
